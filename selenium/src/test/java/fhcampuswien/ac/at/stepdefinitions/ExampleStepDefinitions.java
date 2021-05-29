@@ -1,4 +1,4 @@
-package fhcampuswien.ac.at.selenium.stepdefinitions;
+package fhcampuswien.ac.at.stepdefinitions;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -33,11 +33,6 @@ public class ExampleStepDefinitions {
     @After
     public void tearDown() {
         driver.quit();
-    }
-
-    @Then("links for cat were found")
-    public void linksForCatWereFound() {
-        System.out.println("Then");
     }
 
     @Given("route from {string} was selected")

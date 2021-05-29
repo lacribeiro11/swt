@@ -1,4 +1,4 @@
-package fhcampuswien.ac.at.selenium;
+package fhcampuswien.ac.at;
 
 
 import io.cucumber.junit.Cucumber;
@@ -6,8 +6,8 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/fhcampuswien.ac.at.selenium.features",
-        glue = "fhcampuswien.ac.at.selenium.stepdefinitions",
+@CucumberOptions(features = "src/test/resources/fhcampuswien.ac.at.features",
+        glue = "fhcampuswien.ac.at.stepdefinitions",
         plugin = {"pretty", "json:target/cucumber.json", "html:target/cucumber.html"})
 public class RunCucumberTest {
 

@@ -7,7 +7,17 @@
         <artifactId>swt</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>selenium</artifactId>
+    <artifactId>appium</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>selenium</name>
+    <name>appium</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>${apium-java-client.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
