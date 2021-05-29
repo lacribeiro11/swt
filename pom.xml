@@ -17,10 +17,12 @@
         <junit-jupiter.version>5.8.0-M1</junit-jupiter.version>
         <hamcrest.version>1.3</hamcrest.version>
         <selenium-java.version>3.141.59</selenium-java.version>
+        <apium-java-client.version>7.5.1</apium-java-client.version>
     </properties>
 
     <modules>
         <module>selenium</module>
+        <module>appium</module>
     </modules>
 
     <dependencies>
@@ -48,14 +50,20 @@
             <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-java</artifactId>
-                <version>${selenium-java.version}</version>
+                <groupId>io.appium</groupId>
+                <artifactId>java-client</artifactId>
+                <version>${apium-java-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

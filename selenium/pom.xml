@@ -10,12 +10,4 @@
     <artifactId>selenium</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>selenium</name>
-    <dependencies>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
 </project>
