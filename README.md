@@ -49,3 +49,37 @@ When Wähle
 |Wien |Linz| Montag in 3 Wochen |1| keine
 Then TicketKostet €38,50
 ```
+
+## Setup
+
+### What we need
+
+* Java JDK https://adoptopenjdk.net/ 11 LTS
+* Maven http://maven.apache.org/download.cgi Binary zip or tar.gz archive
+* Appium Desktop https://github.com/appium/appium-desktop/releases/tag/v1.21.0
+* Android Emulator https://developer.android.com/studio
+* ChromeDriver https://chromedriver.storage.googleapis.com/index.html?path=91.0.4472.19/
+* FirefoxDriver https://github.com/mozilla/geckodriver/releases/tag/v0.29.1
+
+### Android Virtual Device
+
+* Phone: Pixel 2
+* API: 30
+* Release Name: R
+* ABI: x86 or x86_64
+* Target: Android 11.0 (Google APIs)
+
+#### Install OEBB App
+
+* https://m.apkpure.com/de/%C3%B6bb-%E2%80%93-train-tickets-more/at.oebb.ts
+
+### Appium Capabilities
+
+```json
+{
+  "deviceName": "emulator-5554",
+  "platformName": "android",
+  "appPackage": "at.oebb.ts",
+  "appActivity": "at.oebb.ts.SplashActivity"
+}
+```
