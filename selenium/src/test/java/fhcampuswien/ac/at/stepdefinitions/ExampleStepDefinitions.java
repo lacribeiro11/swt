@@ -20,7 +20,7 @@ public class ExampleStepDefinitions {
     private final WebDriver driver;
 
     public ExampleStepDefinitions() {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/linux/geckodriver");
+        BrowserUtil.SetDriverProperties();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
