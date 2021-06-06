@@ -83,3 +83,23 @@ Then TicketKostet €38,50
   "appActivity": "at.oebb.ts.SplashActivity"
 }
 ```
+
+### Selenium
+
+For Windows Firefox driver change the following properties in ExampleStepDefinitions:
+
+    public ExampleStepDefinitions() {
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/windows/geckodriver");
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+
+and change the following (otherwise, ElementNotInteractableException will be thrown):
+
+    @When("\"Search connection\" was pressed")
+    public void wasPressed() {
+        driver.findElement(By.id("HFSContent"))
+                .findElement(By.id("HFSQuery"))
+                .findElement(By.name("start"))
+                .click();
+    }
