@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -102,6 +103,6 @@ public class ExampleStepDefinitions {
     private String getFirstDayOfNextMonthDate() {
         LocalDate nextMonth = LocalDate.now().plusMonths(1);
         nextMonth = LocalDate.of(nextMonth.getYear(), nextMonth.getMonth(), 1);
-        return nextMonth.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        return nextMonth.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("en")));
     }
 }
