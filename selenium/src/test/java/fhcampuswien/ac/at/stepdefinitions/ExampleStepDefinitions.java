@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -76,6 +77,6 @@ public class ExampleStepDefinitions {
     private String getFirstDayOfNextMonthDate() {
         LocalDate nextMonth = LocalDate.now().plusMonths(1);
         nextMonth = LocalDate.of(nextMonth.getYear(), nextMonth.getMonth(), 1);
-        return nextMonth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return nextMonth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("en")));
     }
 }
