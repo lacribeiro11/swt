@@ -103,3 +103,12 @@ and change the following (otherwise, ElementNotInteractableException will be thr
                 .findElement(By.name("start"))
                 .click();
     }
+
+## How to generate the report
+
+Inside the **swt** directory
+
+1. Run the tests: `mvn test`
+1. Create the report: `mvn cluecumber-report:reporting`
+
+To generate the reports, this plugin https://github.com/trivago/cluecumber-report-plugin was used
