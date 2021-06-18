@@ -1,6 +1,6 @@
-Feature: Open the Browser and search in google
+Feature: Open the ÖBB Web-Page
 
-  Scenario: SC1 Buy ticket from Wien to Linz for 01.NEXT_MONTH at 09:00
+  Scenario: SC2 Buy ticket from Wien to Linz for 01.NEXT_MONTH at 09:00
     Given route from "WIEN" was selected
     Given route to "LINZ" was selected
     Given date "01.NEXT_MONTH" was selected

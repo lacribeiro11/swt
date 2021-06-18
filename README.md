@@ -86,3 +86,11 @@ Start Inspector Session and insert the following in the desired Capabilities:
   "appActivity": "at.oebb.ts.SplashActivity"
 }
 ```
+## How to generate the report
+
+Inside the **swt** directory
+
+1. Run the tests: `mvn test`
+1. Create the report: `mvn cluecumber-report:reporting`
+
+To generate the reports, this plugin https://github.com/trivago/cluecumber-report-plugin was used

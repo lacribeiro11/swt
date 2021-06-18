@@ -19,6 +19,7 @@
         <selenium-java.version>3.141.59</selenium-java.version>
         <apium-java-client.version>7.5.1</apium-java-client.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <cluecumber-report-plugin.version>2.7.0</cluecumber-report-plugin.version>
     </properties>
 
     <modules>
@@ -80,6 +81,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-report-plugin</artifactId>
+                <version>${cluecumber-report-plugin.version}</version>
+                <!-- Execution isn't integrated, because the html report will be empty -->
+                <configuration>
+                    <sourceJsonReportDirectory>${project.build.directory}</sourceJsonReportDirectory>
+                    <generatedHtmlReportDirectory>${project.build.directory}</generatedHtmlReportDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
