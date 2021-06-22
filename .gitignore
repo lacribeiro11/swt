@@ -28,3 +28,5 @@ HELP.md
 mvnw
 mvnw.cmd
 /target/
+/selenium/target/
+/appium/target/

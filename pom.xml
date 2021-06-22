@@ -20,6 +20,7 @@
         <apium-java-client.version>7.5.1</apium-java-client.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <cluecumber-report-plugin.version>2.7.0</cluecumber-report-plugin.version>
+        <automation.version>0.1.2</automation.version>
     </properties>
 
     <modules>
@@ -71,6 +72,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.sukgu</groupId>
+                <artifactId>automation</artifactId>
+                <version>${automation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
