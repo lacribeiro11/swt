@@ -7,27 +7,23 @@ Entwickeln Sie eine Testautomatisierungslösung für eine Multi-Channelanwendung
 ### Anforderungen an die Lösung
 
 * Liest Testfälle in Gherkin-Syntax ein: (Given-When-Then)
-* Führt die Testfälle entweder gegen die: Web- oder App-Variante aus
-* Protokolliert das Ergebnis der:   Testdurchführung
+* 2 Testfälle je Channel ([Testfälle](#test-cases))
+* Führt die Testfälle gegen ÖBB Web- und App-Variante aus
+* Gesammelte Protokolliert der Ergebnisse
 
 ### Technologiestack
 
-* Testautomatisierungslösung in SDK Ihrer Wahl
+* Java/Maven Projekt
 * Integration Selenium für Webchannel
 * Integration Appium für mobilen Channel
+* Web Driver for Mac, Linux and Windows
 
-### Vorgehen
+### Abgabe
 
-* 5 agile Teams, selbstorganisiert
-* PO je Team als Schnittstelle zu Auftraggeber
-
-### Ergebnis
-
-* 2 Testfälle je Channel (Suche, Ticketbuchung)
 * Demo am 29.6.., max. 15‘
 * Dokumentierter Sourcecode
 
-## Beispieltestfälle
+## <a name="test-cases"></a>Beispieltestfälle
 
 ### Westbahnzüge werden nicht buchbar angezeigt
 
