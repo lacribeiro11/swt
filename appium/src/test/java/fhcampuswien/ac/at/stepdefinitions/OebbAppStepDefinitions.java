@@ -21,11 +21,12 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class ExampleStepDefinitions {
+public class OebbAppStepDefinitions {
     private final AndroidDriver<AndroidElement> driver;
 
-    public ExampleStepDefinitions() throws MalformedURLException {
+    public OebbAppStepDefinitions() throws MalformedURLException {
         final DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
@@ -104,5 +105,56 @@ public class ExampleStepDefinitions {
         LocalDate nextMonth = LocalDate.now().plusMonths(1);
         nextMonth = LocalDate.of(nextMonth.getYear(), nextMonth.getMonth(), 1);
         return nextMonth.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("en")));
+    }
+
+    @Then("Router Planner shows the values for: {string}")
+    public void routerPlannerShowsTheValuesFor(String expectedPrice) {
+        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[5]/android.widget.RelativeLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[1]").click();
+        driver.findElementByAccessibilityId("Journey Preview").click();
+
+        final String shownPrice = driver.findElementById("at.oebb.ts:id/header_price_total").getText();
+
+        assertEquals(expectedPrice, shownPrice);
+    }
+
+    @Given("Add to basket was pressed")
+    public void addToCardWasPressed() {
+        driver.findElementByAccessibilityId("Add to\nBasket").click();
+    }
+
+    @Given("{string} and {string} was inserted")
+    public void andWasInserted(String firstname, String lastname) {
+        driver.findElementByXPath("//android.widget.LinearLayout[@content-desc=\"First name\"]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText").click();
+        driver.findElementByXPath("//android.widget.LinearLayout[@content-desc=\"First name\"]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText").sendKeys(firstname);
+        driver.findElementByXPath("//android.widget.LinearLayout[@content-desc=\"Last name\"]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText").click();
+        driver.findElementByXPath("//android.widget.LinearLayout[@content-desc=\"Last name\"]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText").sendKeys(lastname);
+        driver.findElementByAccessibilityId("CONFIRM").click();
+    }
+
+    @Given("the shopping card price shows the values for: {string}")
+    public void theShoppingCardPriceShowsTheValuesFor(String expectedPrice) {
+        final String shownPrice = driver.findElementById("at.oebb.ts:id/shopping_cart_info_price").getText();
+        assertEquals(expectedPrice, shownPrice);
+    }
+
+    @When("Service and Price Details was pressed")
+    public void serviceAndPriceDetailsWasPressed() {
+        driver.findElementByAccessibilityId("Tap here for service and price details").click();
+        
+    }
+
+    @Then("the overview shows the values for: fromTo {string}, ticketType {string}, adult {string}, discount {string}, totalAmount {string}")
+    public void theOverviewShowsTheValuesForFromToTicketTypeAdultDiscountTotalAmount(String expectedFromTo, String expectedTicketType, String expectedAdult, String expectedDiscount, String expectedPrice) {
+        final String shownFromTo = driver.findElementById("at.oebb.ts:id/fromTo").getText();
+        final String shownTicketType = driver.findElementById("at.oebb.ts:id/textTitle").getText();
+        final String shownAdult = driver.findElementById("at.oebb.ts:id/name").getText();
+        final String shownDiscount = driver.findElementById("at.oebb.ts:id/cards").getText();
+        final String shownPrice = driver.findElementById("at.oebb.ts:id/price_details_price_overview_amount").getText();
+
+        assertEquals(expectedFromTo, shownFromTo);
+        assertEquals(expectedTicketType, shownTicketType);
+        assertEquals(expectedAdult, shownAdult);
+        assertEquals(expectedDiscount, shownDiscount);
+        assertEquals(expectedPrice, shownPrice);
     }
 }
