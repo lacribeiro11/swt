@@ -21,7 +21,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class OebbAppStepDefinitions {
     private final AndroidDriver<AndroidElement> driver;
@@ -36,6 +35,7 @@ public class OebbAppStepDefinitions {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
+    // Each time the app is started info boxes are shown: 1. location permission, 2. tap here for quick search and finally continue to search view
     @Before
     public void setUp() {
         driver.findElementById("com.android.permissioncontroller:id/permission_deny_button").click();
@@ -48,7 +48,7 @@ public class OebbAppStepDefinitions {
         driver.quit();
     }
 
-
+    // Tap on the element and wait until the solutions are loaded and tap on the first element
     @Given("route from {string} was selected")
     public void routeFromWasSelected(String from) throws InterruptedException {
         MobileElement destination = driver.findElementByAccessibilityId("Destination");
@@ -58,6 +58,7 @@ public class OebbAppStepDefinitions {
         (new TouchAction(driver)).tap(PointOption.point(413, 397)).perform();
     }
 
+    // See previous comment
     @Given("route to {string} was selected")
     public void routeToWasSelected(String to) throws InterruptedException {
         MobileElement arrival = driver.findElementByAccessibilityId("arrival");
@@ -71,15 +72,18 @@ public class OebbAppStepDefinitions {
     public void dateWasSelected() {
         driver.findElementById("at.oebb.ts:id/header_time_from").click();
         driver.findElementByAccessibilityId("Date").click();
-        driver.findElementByAccessibilityId(getFirstDayOfNextMonthDate()).click();
+        driver.findElementByAccessibilityId(getFirstDayOfNextMonthDateInEnglish()).click();
     }
 
     @Given("time \"09:00\" was selected")
     public void timeWasTyped() {
         driver.findElementByAccessibilityId("Time").click();
         driver.findElementById("at.oebb.ts:id/hours").click();
+        // This is the 9 hour position in a analog clock
         (new TouchAction(driver)).tap(PointOption.point(290, 1183)).perform();
         driver.findElementById("at.oebb.ts:id/minutes").click();
+
+        // This is the 0 minute position in a analog clock
         (new TouchAction(driver)).tap(PointOption.point(538, 827)).perform();
         driver.findElementByAccessibilityId("CONFIRM").click();
     }
@@ -89,6 +93,7 @@ public class OebbAppStepDefinitions {
         driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[5]/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[1]/android.widget.ImageView").click();
     }
 
+    // Shows the journey preview and assert if the actual values are expected
     @Then("Router Planner shows the values for: From {string}, To: {string}")
     public void routerPlannerShowsTheValuesForFromToDateTime(String from, String to) {
         driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[5]/android.widget.RelativeLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[1]").click();
@@ -101,12 +106,13 @@ public class OebbAppStepDefinitions {
         assertEquals(to, toHbf);
     }
 
-    private String getFirstDayOfNextMonthDate() {
+    private String getFirstDayOfNextMonthDateInEnglish() {
         LocalDate nextMonth = LocalDate.now().plusMonths(1);
         nextMonth = LocalDate.of(nextMonth.getYear(), nextMonth.getMonth(), 1);
         return nextMonth.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("en")));
     }
 
+    // Shows a preview of the trip and asserts the prices
     @Then("Router Planner shows the values for: {string}")
     public void routerPlannerShowsTheValuesFor(String expectedPrice) {
         driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.FrameLayout[5]/android.widget.RelativeLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[1]").click();
@@ -122,6 +128,7 @@ public class OebbAppStepDefinitions {
         driver.findElementByAccessibilityId("Add to\nBasket").click();
     }
 
+    // Add the traveller personal data
     @Given("{string} and {string} was inserted")
     public void andWasInserted(String firstname, String lastname) {
         driver.findElementByXPath("//android.widget.LinearLayout[@content-desc=\"First name\"]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText").click();
@@ -131,6 +138,7 @@ public class OebbAppStepDefinitions {
         driver.findElementByAccessibilityId("CONFIRM").click();
     }
 
+    // Shows the ticket in the shopping cart and asserts the price
     @Given("the shopping card price shows the values for: {string}")
     public void theShoppingCardPriceShowsTheValuesFor(String expectedPrice) {
         final String shownPrice = driver.findElementById("at.oebb.ts:id/shopping_cart_info_price").getText();
@@ -143,6 +151,7 @@ public class OebbAppStepDefinitions {
         
     }
 
+    // Shows summary of the purchase and asserts the information inserted by the customer
     @Then("the overview shows the values for: fromTo {string}, ticketType {string}, adult {string}, discount {string}, totalAmount {string}")
     public void theOverviewShowsTheValuesForFromToTicketTypeAdultDiscountTotalAmount(String expectedFromTo, String expectedTicketType, String expectedAdult, String expectedDiscount, String expectedPrice) {
         final String shownFromTo = driver.findElementById("at.oebb.ts:id/fromTo").getText();

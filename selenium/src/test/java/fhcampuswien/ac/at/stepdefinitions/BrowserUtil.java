@@ -2,6 +2,9 @@ package fhcampuswien.ac.at.stepdefinitions;
 
 import org.apache.commons.lang3.SystemUtils;
 
+/**
+ * This class is responsible to select the correct chromedrive for the specific OS
+ */
 final class BrowserUtil {
     private BrowserUtil() {
     }

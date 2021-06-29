@@ -5,7 +5,7 @@ Feature: Check Ticket Price
     Given to "LINZ" was selected
     Given date menu button was pressed
     Given date "nextMonth" in format TT.MM.YYYY was selected
-    Given time and date settings saved
+    Given date settings saved
     When route search button was pressed
     Then route Planner shows the values for: From "Wien", To: "Linz", Date: "nextMonth", Time: "09:00 (Departure)"
 
@@ -14,7 +14,7 @@ Feature: Check Ticket Price
     Given to "LINZ" was selected
     Given date menu button was pressed
     Given date "30.06.2021" in format TT.MM.YYYY was selected
-    Given time and date settings saved
+    Given date settings saved
     Given ticket book button was pressed
     When ticket show tickets button was pressed
     Then ticket screen shows price "38,30"

@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OebbStepDefinitions {
     private final WebDriver driver;
+    // using library encapsulated shadow-dom(it could be replaced by method: fhcampuswien.ac.at.stepdefinitions.OebbStepDefinitions.getShadowRootElement)
     private final Shadow shadow;
 
     public OebbStepDefinitions() {
@@ -41,21 +42,25 @@ public class OebbStepDefinitions {
         driver.quit();
     }
 
+    // Returns encapsulated shadow-dom
     public WebElement getShadowRootElement(WebElement element) {
         return (WebElement) ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot", element);
     }
 
+    // Select first entry station in drop-down
     private void pickFirstFromList() {
         var shadow1 = getShadowRootElement(driver.findElement(By.xpath("/html/body/div/div/main/div[2]/div[2]/oebb-from-to-form")));
         var shadow2 = getShadowRootElement(shadow1.findElement(By.cssSelector("#oebb-ftf-form > oebb-from-to-station-select")));
         shadow2.findElement(By.cssSelector("div > ul > li:nth-child(1) > button:nth-child(1)")).click();
     }
 
+    // It will switch to the second tab, when it appears
     private void switchToSecondTab() {
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
     }
 
+    // Type departure
     @Given("from {string} was selected")
     public void fromWasSelected(String from) {
         shadow.findElement("#oebb-ftf-from").clear();
@@ -63,6 +68,7 @@ public class OebbStepDefinitions {
         pickFirstFromList();
     }
 
+    // Type destination
     @Given("to {string} was selected")
     public void toWasSelected(String to) throws InterruptedException {
         shadow.findElement("#oebb-ftf-to").clear();
@@ -78,18 +84,12 @@ public class OebbStepDefinitions {
 
     @Given("date {string} (in format TT.MM.YYYY) was selected")
     public void ticketDateWasSelected(String date) {
-        final String checkDate = (date.equals("nextMonth")) ? getFirstDayOfNextMonthDate() : date;
+        final String checkDate = (date.equals("nextMonth")) ? getFirstDayOfNextMonthDateInEnglish() : date;
         shadow.findElement("#oebb-date-field-date").clear();
         shadow.findElement("#oebb-date-field-date").sendKeys(checkDate);
     }
 
-    @Given("time {string} (in format HH:MM) was selected")
-    public void timeWasTyped(String time) {
-        shadow.findElement("#oebb-time-field-time").clear();
-        shadow.findElement("#oebb-date-field-time").sendKeys(time);
-    }
-
-    @Given("time and date settings saved")
+    @Given("date settings saved")
     public void timeAndDateSettingsSaved() {
         var shadow1 = getShadowRootElement(driver.findElement(By.xpath("/html/body/div/div/main/div[2]/div[2]/oebb-from-to-form")));
         shadow1.findElement(By.cssSelector("#oebb-ftf-form > oebb-date-time-dialog > div > button")).click();
@@ -123,13 +123,13 @@ public class OebbStepDefinitions {
     @Then("route Planner shows the values for: From {string}, To: {string}, Date: {string}, Time: {string}")
     public void routerPlannerShowsTheValuesForFromToDateTime(String from, String to, String date, String time) {
         switchToSecondTab();
-        final String checkDate = (date.equals("nextMonth")) ? getFirstDayOfNextMonthDate() : date;
+        final String checkDate = (date.equals("nextMonth")) ? getFirstDayOfNextMonthDateInEnglish() : date;
         assertTrue(driver.findElement(By.xpath(("//div[@id='HFSResult']/div/div/div/span[2]"))).getText().contains(from), "To label should contain: " + from);
         assertTrue(driver.findElement(By.xpath(("//div[@id='HFSResult']/div/div/div[2]/span[2]"))).getText().contains(to), "To label should contain: " + to);
         assertTrue(driver.findElement(By.xpath(("//div[@id='HFSResult']/div/div[2]/div/span[2]"))).getText().contains(checkDate), "Date label should contain: " + checkDate);
     }
 
-    private String getFirstDayOfNextMonthDate() {
+    private String getFirstDayOfNextMonthDateInEnglish() {
         LocalDate nextMonth = LocalDate.now().plusMonths(1);
         nextMonth = LocalDate.of(nextMonth.getYear(), nextMonth.getMonth(), 1);
         return nextMonth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("en")));
